@@ -24,7 +24,7 @@ class LayerNorm(nn.Module):
         self.emb_dim = ndim
         self.eps = 1e-5
 
-    def forward(self, input):
+    def forward(self, x):
         means = x.pow(2).mean(dim=-1, keepdim=True)
         x_normed = x * torch.rsqrt(means + self.eps)
         return (x_normed * self.weight).to(dtype=x.dtype)
