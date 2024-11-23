@@ -165,7 +165,7 @@ class GPT(nn.Module):
             #wpe = nn.Embedding(config.block_size, config.n_embd), # Position Embedding, 这里直接用nn.Embedding来构造可学习的位置嵌入，而没有使用更新潮的RoPE等POS
             drop = nn.Dropout(config.dropout),
             h = nn.ModuleList([Block(config) for _ in range(config.n_layer)]), # Block 根据超参layer数来堆叠
-            ln_f = LayerNorm(config.n_embd, bias=config.bias),
+            ln_f = RMSNorm(config.n_embd, bias=config.bias),
         ))
         self.lm_head = nn.Linear(config.n_embd, config.vocab_size, bias=False) # TODO 这是什么鬼？
         self.transformer.wte.weight = self.lm_head.weight # 与上面的lm_head参数共享
