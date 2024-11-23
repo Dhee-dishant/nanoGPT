@@ -18,7 +18,7 @@ from torch.nn import functional as F
 class RotaryPositionalEmbeddings(nn.Module):
     def __init__(self, config):
         super().__init__()
-        self.base = config.base
+        self.base = False
         self.d = config.n_embd // config.n_head
         self.cos_cached = None
         self.sin_cached = None
